@@ -55,6 +55,13 @@ namespace VMControlFunctionsv2
 
                 var msiCred = f.FromMSI(msi, AzureEnvironment.AzureGlobalCloud);
 
+                log.LogInformation($"MSI ClientId:  {msiCred.ClientId}");
+                if (msiCred.ClientId==null)
+                {
+                    log.LogWarning("Looks like Function App doesn't have a Managed Identity set");
+                }
+
+
                 var azureAuth = Azure.Configure()
                                  .WithLogLevel(HttpLoggingDelegatingHandler.Level.BodyAndHeaders)
                                  .Authenticate(msiCred);
