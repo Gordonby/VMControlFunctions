@@ -21,17 +21,6 @@ namespace VMControlFunctionsv2
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            //log.LogInformation("C# HTTP trigger function processed a request.");
-
-            //string name = req.Query["name"];
-
-            //string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            //dynamic data = JsonConvert.DeserializeObject(requestBody);
-            //name = name ?? data?.name;
-
-            //return name != null
-            //    ? (ActionResult)new OkObjectResult($"Hello, {name}")
-            //    : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
 
             try
             {
@@ -42,6 +31,7 @@ namespace VMControlFunctionsv2
                 dynamic data = JsonConvert.DeserializeObject(requestBody);
                 string subscriptionId = data?.subscriptionId;
                 string resourceGroupName = data?.resourceGroupName;
+                bool useVmStartAwait = data?.wait == null ? false ? data?.wait;
                 string vmName = data?.vmName;
 
                 if (subscriptionId == null || resourceGroupName == null || vmName == null)
@@ -62,13 +52,6 @@ namespace VMControlFunctionsv2
                 log.LogInformation("Authenticating with Azure using MSI");
                 var azure = azureAuth.WithSubscription(subscriptionId);
 
-                log.LogInformation($"MSI ClientId:  {msiCred.ClientId}");
-                if (msiCred.ClientId == null)
-                {
-                    log.LogWarning("Looks like Function App doesn't have a Managed Identity set");
-                }
-                
-
                 log.LogInformation("Acquiring VM from Azure");
                 var vm = azure.VirtualMachines.GetByResourceGroup(resourceGroupName, vmName);
 
@@ -85,8 +68,17 @@ namespace VMControlFunctionsv2
                 }
                 else
                 {
-                    log.LogInformation("Starting vm " + vmName);
-                    await vm.StartAsync();
+                    if (useVmStartAwait)
+                    {
+                        log.LogInformation("Async Starting vm " + vmName);
+                        await vm.StartAsync();
+                    }
+                    else
+                    {
+                        log.LogInformation("Sync Starting vm " + vmName);
+                        vm.Start();
+                    }
+
                     vmStarting = true;
                 }
 
