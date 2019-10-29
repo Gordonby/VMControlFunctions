@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2000
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMControlFunctions", "VMControlFunctions\VMControlFunctions.csproj", "{75FFA263-D073-4CBF-89FE-48EF2C8295C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMControlFunctions", "VMControlFunctions\VMControlFunctions.csproj", "{75FFA263-D073-4CBF-89FE-48EF2C8295C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMControlFunctionsv2", "VMControlFunctionsv2\VMControlFunctionsv2.csproj", "{B2F05D59-D9FD-49CC-A6DA-A9B15B21FE8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{75FFA263-D073-4CBF-89FE-48EF2C8295C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75FFA263-D073-4CBF-89FE-48EF2C8295C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75FFA263-D073-4CBF-89FE-48EF2C8295C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F05D59-D9FD-49CC-A6DA-A9B15B21FE8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F05D59-D9FD-49CC-A6DA-A9B15B21FE8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F05D59-D9FD-49CC-A6DA-A9B15B21FE8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F05D59-D9FD-49CC-A6DA-A9B15B21FE8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
