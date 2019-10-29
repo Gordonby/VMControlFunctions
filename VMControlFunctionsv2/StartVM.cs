@@ -31,13 +31,15 @@ namespace VMControlFunctionsv2
                 dynamic data = JsonConvert.DeserializeObject(requestBody);
                 string subscriptionId = data?.subscriptionId;
                 string resourceGroupName = data?.resourceGroupName;
-                bool useVmStartAwait = data?.wait == null ? false ? data?.wait;
+                bool? useVmStartAwait = data?.wait;
                 string vmName = data?.vmName;
 
                 if (subscriptionId == null || resourceGroupName == null || vmName == null)
                 {
                     return new BadRequestObjectResult("Please pass all 3 required parameters in the request body");
                 }
+
+                if (useVmStartAwait == null) useVmStartAwait = false;
 
                 log.LogInformation("Setting authentication to use MSI");
                 AzureCredentialsFactory f = new AzureCredentialsFactory();
@@ -68,7 +70,7 @@ namespace VMControlFunctionsv2
                 }
                 else
                 {
-                    if (useVmStartAwait)
+                    if (useVmStartAwait.Value)
                     {
                         log.LogInformation("Async Starting vm " + vmName);
                         await vm.StartAsync();
