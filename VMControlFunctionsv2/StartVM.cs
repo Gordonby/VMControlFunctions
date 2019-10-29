@@ -14,11 +14,11 @@ using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 
 namespace VMControlFunctionsv2
 {
-    public static class Function1
+    public static class StartVM
     {
         [FunctionName("StartVM")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             //log.LogInformation("C# HTTP trigger function processed a request.");
